@@ -2,6 +2,14 @@
 
 ![./pic.png](DEMO)
 
+### USER Features demo (GIF)
+
+![](./user.gif)
+
+### Admin Features demo (GIF)
+
+![](./admin.gif)
+
 ### Tech Stack Used
 
 -   Backend : NodeJS,Express
