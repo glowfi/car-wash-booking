@@ -1,5 +1,5 @@
 # Car-Wash-Booking web-app
-
+![](./pic.png)
 
 ### USER Features demo (Video)
 https://github.com/glowfi/car-wash-booking/blob/main/user.mkv
