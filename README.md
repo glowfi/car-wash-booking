@@ -1,14 +1,13 @@
 # Car-Wash-Booking web-app
 
-![./pic.png](DEMO)
 
-### USER Features demo (GIF)
+### USER Features demo (Video)
 
-![](./user.gif)
+![](./user.mkv)
 
-### Admin Features demo (GIF)
+### Admin Features demo (Video)
 
-![](./admin.gif)
+![](./admin.mkv)
 
 ### Tech Stack Used
 
