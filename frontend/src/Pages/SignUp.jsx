@@ -18,11 +18,13 @@ const Login = () => {
             email: email,
             password: password
         });
-        // console.log(data);
 
         if (data.data.msg) {
             seterrmsg(data.data.msg);
         } else {
+            console.log(data);
+
+            seterrmsg('');
             localStorage.clear();
 
             localStorage.setItem('uid', JSON.stringify(data.data._id));

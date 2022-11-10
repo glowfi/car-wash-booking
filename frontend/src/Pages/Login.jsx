@@ -21,6 +21,7 @@ const Login = () => {
         if (data.data.msg) {
             seterrmsg(data.data.msg);
         } else {
+            seterrmsg('');
             localStorage.clear();
 
             localStorage.setItem('uid', JSON.stringify(data.data._id));

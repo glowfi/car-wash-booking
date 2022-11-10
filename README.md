@@ -1,11 +1,24 @@
 # Car-Wash-Booking web-app
+
 ![](./pic.png)
 
+### NOTE
+
+**Admin pass**
+
+**admin route login: http://localhost:3000/admin/signin**
+
+**email:admin@admin**
+
+**password:pass**
+
 ### USER Features demo (Video)
+
 https://github.com/glowfi/car-wash-booking/blob/main/user.mkv
 ![](https://github.com/glowfi/car-wash-booking/blob/main/user.mkv)
 
 ### Admin Features demo (Video)
+
 https://github.com/glowfi/car-wash-booking/blob/main/admin.mkv
 ![](https://github.com/glowfi/car-wash-booking/blob/main/admin.mkv)
 

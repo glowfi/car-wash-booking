@@ -72,19 +72,22 @@ export const cancelbook = (req, res) => {
 
 export const signup = async (req, res, next) => {
     // console.log(req.body);
-    try {
-        if (req.body.password.length < 8) {
-            res.status(200).json({
-                msg: 'Password Length must be greater than equal to 8!'
-            });
-        }
-
+    // try {
+    const user = await User.findOne({ email: req.body.email });
+    if (user?.email === req.body.email) {
+        res.status(200).json({ msg: 'Email exists!' });
+    } else if (req.body.password.length < 8) {
+        console.log(req.body.password.length);
+        res.status(200).json({
+            msg: 'Password Length must be greater than equal to 8!'
+        });
+    } else {
         const salt = bcrypt.genSaltSync(10);
         const hash = bcrypt.hashSync(req.body.password, salt);
         const newUser = new User({ ...req.body, password: hash });
         await newUser.save();
 
-        // Also set a cookie
+        // Set a cookie
         const token = jwt.sign({ id: newUser._id }, process.env.JWT);
         const { password, ...others } = newUser._doc;
         res.cookie('acc_tok', token, {
@@ -92,10 +95,12 @@ export const signup = async (req, res, next) => {
         })
             .status(200)
             .json({ ...others, token });
-    } catch (err) {
-        // next(createError(404, 'Use unique email address!'));
-        res.status(200).json({ msg: 'Email address alreadt in use!' });
     }
+
+    // } catch (err) {
+    // next(createError(404, 'Use unique email address!'));
+    // res.status(200).json({ msg: 'Email already in use! ' });
+    // }
 };
 
 export const signin = async (req, res, next) => {
@@ -105,22 +110,22 @@ export const signin = async (req, res, next) => {
         if (!user) {
             // return next(createError(404, 'User not found!'));
             res.status(200).json({ msg: 'No such email exists!' });
-        }
+        } else {
+            const pass = await bcrypt.compare(req.body.password, user.password);
+            if (!pass) {
+                // return next(createError(400, 'Wrong Password!'));
+                res.status(200).json({ msg: 'Wrong Password!' });
+            }
 
-        const pass = await bcrypt.compare(req.body.password, user.password);
-        if (!pass) {
-            // return next(createError(400, 'Wrong Password!'));
-            res.status(200).json({ msg: 'Wrong Password!' });
+            // Set a cookie
+            const token = jwt.sign({ id: user._id }, process.env.JWT);
+            const { password, ...others } = user._doc;
+            res.cookie('acc_tok', token, {
+                httpOnly: true
+            })
+                .status(200)
+                .json({ ...others, token });
         }
-
-        // Set a cookie
-        const token = jwt.sign({ id: user._id }, process.env.JWT);
-        const { password, ...others } = user._doc;
-        res.cookie('acc_tok', token, {
-            httpOnly: true
-        })
-            .status(200)
-            .json({ ...others, token });
 
         // res.status(200).send('Loggedin!');
     } catch (err) { }

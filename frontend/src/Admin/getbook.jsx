@@ -31,7 +31,7 @@ const Getbookall = () => {
     const handleAccept = async (bookid) => {
         // console.log(bookid);
         const data = await axios.post(
-            `${server}/api/admin/rejectbooking/${bookid}`
+            `${server}/api/admin/acceptbooking/${bookid}`
         );
         console.log(data.data);
         window.location.reload();
@@ -274,7 +274,7 @@ const Getbookall = () => {
                                         <button
                                             className="btn btn-danger"
                                             onClick={() => {
-                                                handleAccept(p[1]['_id']);
+                                                handleReject(p[1]['_id']);
                                             }}
                                         >
                                             Reject
