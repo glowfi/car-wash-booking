@@ -3,11 +3,11 @@
 
 ### USER Features demo (Video)
 
-![](./user.mkv)
+![](https://github.com/glowfi/car-wash-booking/blob/main/user.mkv)
 
 ### Admin Features demo (Video)
 
-![](./admin.mkv)
+![](https://github.com/glowfi/car-wash-booking/blob/main/admin.mkv)
 
 ### Tech Stack Used
 
