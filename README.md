@@ -2,11 +2,11 @@
 
 
 ### USER Features demo (Video)
-
+https://github.com/glowfi/car-wash-booking/blob/main/user.mkv
 ![](https://github.com/glowfi/car-wash-booking/blob/main/user.mkv)
 
 ### Admin Features demo (Video)
-
+https://github.com/glowfi/car-wash-booking/blob/main/admin.mkv
 ![](https://github.com/glowfi/car-wash-booking/blob/main/admin.mkv)
 
 ### Tech Stack Used
