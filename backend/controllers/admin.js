@@ -8,24 +8,45 @@ import Bookings from '../models/Bookings.js';
 import DayCount from '../models/DayCount.js';
 import User from '../models/User.js';
 
+function ValidateEmail(mail) {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+        return true;
+    }
+    return false;
+}
+
 export const signup = async (req, res, next) => {
     // console.log(req.body);
     try {
-        const salt = bcrypt.genSaltSync(10);
-        const hash = bcrypt.hashSync(req.body.password, salt);
-        const newAdmin = new Admin({ ...req.body, password: hash });
-        await newAdmin.save();
+        const adm = await Admin.findOne({ email: req.body.email });
+        if (adm?.email === req.body.email) {
+            res.status(200).json({ msg: 'Email exists!' });
+        } else if (ValidateEmail(req.body.email) === false) {
+            res.status(200).json({
+                msg: 'Invalid Email address type!'
+            });
+        } else if (req.body.password.length < 8) {
+            // console.log(req.body.password.length);
+            res.status(200).json({
+                msg: 'Password Length must be greater than equal to 8!'
+            });
+        } else {
+            const salt = bcrypt.genSaltSync(10);
+            const hash = bcrypt.hashSync(req.body.password, salt);
+            const newAdmin = new Admin({ ...req.body, password: hash });
+            await newAdmin.save();
 
-        // Also set a cookie
-        const token = jwt.sign({ id: newAdmin._id }, process.env.JWT);
-        const { password, ...others } = newAdmin._doc;
-        res.cookie('acc_tok', token, {
-            httpOnly: true
-        })
-            .status(200)
-            .json({ ...others, token });
+            // Also set a cookie
+            const token = jwt.sign({ id: newAdmin._id }, process.env.JWT);
+            const { password, ...others } = newAdmin._doc;
+            res.cookie('acc_tok', token, {
+                httpOnly: true
+            })
+                .status(200)
+                .json({ ...others, token });
+        }
     } catch (err) {
-        res.status(200).json({ msg: 'Email address alreadt in use!' });
+        // res.status(200).json({ msg: 'Email address alreadt in use!' });
     }
 };
 

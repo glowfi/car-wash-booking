@@ -8,9 +8,9 @@
 
 **admin route login: http://localhost:3000/admin/signin**
 
-**email:admin@admin**
+**email:admin@admin.com**
 
-**password:pass**
+**password:password**
 
 ### USER Features demo (Video)
 

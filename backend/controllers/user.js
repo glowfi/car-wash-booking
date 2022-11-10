@@ -70,14 +70,25 @@ export const cancelbook = (req, res) => {
     res.json('Its success!');
 };
 
+function ValidateEmail(mail) {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+        return true;
+    }
+    return false;
+}
+
 export const signup = async (req, res, next) => {
     // console.log(req.body);
     // try {
     const user = await User.findOne({ email: req.body.email });
     if (user?.email === req.body.email) {
         res.status(200).json({ msg: 'Email exists!' });
+    } else if (ValidateEmail(req.body.email) === false) {
+        res.status(200).json({
+            msg: 'Invalid Email address type!'
+        });
     } else if (req.body.password.length < 8) {
-        console.log(req.body.password.length);
+        // console.log(req.body.password.length);
         res.status(200).json({
             msg: 'Password Length must be greater than equal to 8!'
         });
